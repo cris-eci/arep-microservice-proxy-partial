@@ -48,16 +48,28 @@ Now, we are going to
 kill mathservice1, run again the curls and it should still work via mathservice2
 ![killing matchservice1 and running curls again](imgs/success-local-implementation.png)
 
-
+### Creating the jars in each service
+```bash
+mvn package -DskipTests
+mvn package -DskipTests
+```
+![Jars](imgs/local-jars.png)
 # AWS Deployment
 
 First, we need to create 3 EC2 instances with free tier features, each of them must have a custom tcp inboundaring rule that allows the 8080 port. 
 
 - **Mathservice 1**
-![math-service creation instance](imgs/math-service-1.png)
+![math-service 1 creation instance](imgs/math-service-1.png)
 
 - **Mathservice 2**
+![math-service 2 creation instance](imgs/math-service-2.png)
+
 
 - **Proxy**
+![proxy-service creation instance](imgs/proxy-1.png)
+
+
+- **Three intances running**
+![all three instances running together](imgs/3-ec2s-running.png)
 
 
