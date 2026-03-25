@@ -44,8 +44,10 @@ We can use these commands to verify everything is ok:
 curl "http://localhost:8081/lucasseq?value=10"      # direct
 curl "http://localhost:8080/proxy/lucasseq?value=10" # through proxy
 ```
+
 Now, we are going to 
 kill mathservice1, run again the curls and it should still work via mathservice2
+
 ![killing matchservice1 and running curls again](imgs/success-local-implementation.png)
 
 ### Creating the jars in each service
@@ -73,3 +75,43 @@ First, we need to create 3 EC2 instances with free tier features, each of them m
 ![all three instances running together](imgs/3-ec2s-running.png)
 
 
+# Conecting and uploading jars to each instance using sc
+
+### Math service 1
+```bash
+scp -i labsuser.pem mathservice/target/mathservice-0.0.1-SNAPSHOT.jar ec2-user@54.221.170.16:~/
+ssh -i labsuser.pem ec2-user@54.221.170.16
+
+sudo yum install java-17-amazon-corretto -y
+java -jar mathservice-0.0.1-SNAPSHOT.jar &
+```
+![remote connections math service 1](imgs/ec2-connection-m1.png)
+
+
+### Math service 2
+```bash
+scp -i labsuser.pem mathservice/target/mathservice-0.0.1-SNAPSHOT.jar ec2-user@13.218.99.139:~/
+ssh -i labsuser.pem ec2-user@13.218.99.139
+
+sudo yum install java-17-amazon-corretto -y
+java -jar mathservice-0.0.1-SNAPSHOT.jar &
+```
+![remote connections math service 2](imgs/ec2-connection-m2.png)
+
+### proxy
+```bash
+scp -i labsuser.pem proxy/target/proxy-0.0.1-SNAPSHOT.jar ec2-user@54.226.162.198:~/
+ssh -i labsuser.pem ec2-user@54.226.162.198
+
+sudo yum install java-17-amazon-corretto -y
+export INSTANCE1_URL=http://54.221.170.16:8080
+export INSTANCE2_URL=http://13.218.99.139:8080
+java -jar proxy-0.0.1-SNAPSHOT.jar
+```
+![remote connections proxy](imgs/ec2-connection-pro.png)
+
+---
+
+## 9. Verify and record
+Open `http://54.226.162.198:8080` browser
+![broser navegation through proxy](imgs/browser-proxy-implementation.png)
