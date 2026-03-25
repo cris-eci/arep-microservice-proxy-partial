@@ -113,5 +113,5 @@ java -jar proxy-0.0.1-SNAPSHOT.jar
 ---
 
 ## 9. Verify and record
-Open `http://54.226.162.198:8080` browser
+Open `http://54.226.162.198:8080` or `http://ec2-54-226-162-198.compute-1.amazonaws.com:8080/` in browser
 ![broser navegation through proxy](imgs/browser-proxy-implementation.png)
