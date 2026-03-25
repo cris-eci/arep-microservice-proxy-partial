@@ -16,28 +16,25 @@ public class MathServiceController{
              + "\"input\":\"" + value + "\","
              + "\"output\":\"" + result + "\"}";
     }
-
+    
     private long computeLucasAlgorithm(int n) {
-        long b = 1;
-        // if (n == 2) return 2;
-        // if (n == 1) return 1;
-        // if (n>=2){
-
-        // }
-        return b;
+        if (n < 0) {
+            throw new IllegalArgumentException("n must be >= 0");
+        }
+        if (n == 0) return 2;
+        if (n == 1) return 1;
+    
+        long prev2 = 2; 
+        long prev1 = 1; 
+    
+        for (int i = 2; i <= n; i++) {
+            long current = prev1 + prev2; 
+            prev2 = prev1;
+            prev1 = current;
+        }
+        return prev1;
     }
+    
 }
 
-// if (n <= 1) return n;
-// long a = 0, b = 1;
-// for (int i = 2; i <= n; i++) { long t = a+b; a = b; b = t; }
-// return b;
-
-
-// Secuencia de Lucas: 
-// La secuencia de Lucas se calcula de la siguiente manera :
-//  L(0)=2
-// L(1)=1
-// L(n)=L(n−1)+L(n−2)
-// , para un n≥2
 

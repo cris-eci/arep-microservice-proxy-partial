@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <h1>Function 1</h1>
+  <input type="text" id="val" value="10">
+  <button onclick="call()">Compute</button>
+  <div id="result"></div>
+  <script>
+    function call() {
+      var v = document.getElementById("val").value;
+      var x = new XMLHttpRequest();
+      x.onload = function() {
+        document.getElementById("result").innerHTML = this.responseText;
+      };
+      x.open("GET", "/proxy/lucasseq?value=" + v);
+      x.send();
+    }
+  </script>
+</body>
+</html>
