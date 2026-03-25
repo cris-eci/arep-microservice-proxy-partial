@@ -35,14 +35,14 @@ cd mathservice && PORT=8082 mvn spring-boot:run
 cd proxy
 export INSTANCE1_URL=http://localhost:8081
 export INSTANCE2_URL=http://localhost:8082
-mvn spring-boot:run
+cd proxy && mvn spring-boot:run
 ```
 ![Proxy running and working](imgs/local-proxy.png)
 
 We can use these commands to verify everything is ok:
 ```bash
-curl "http://localhost:8081/function1?value=10"      # direct
-curl "http://localhost:8080/proxy/function1?value=10" # through proxy
+curl "http://localhost:8081/lucasseq?value=10"      # direct
+curl "http://localhost:8080/proxy/lucasseq?value=10" # through proxy
 ```
 Now, we are going to 
 kill mathservice1, run again the curls and it should still work via mathservice2
